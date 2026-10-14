@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cooking Calories</title>
+<style>
+:root{--bg:#f4f8f6;--surf:#fff;--ink:#12312b;--mut:#4d6a63;--line:#cfdcd6;--carbs:#a87400;--protein:#c8463d;--fats:#3a76ab;--fibres:#2f8a4d;--btn:#12312b;--on:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1c19;--surf:#172925;--ink:#e6f2ee;--mut:#9fb8b0;--line:#2c433d;--carbs:#e0a82a;--protein:#ea7168;--fats:#6fa6d6;--fibres:#5bbf7a;--btn:#e6f2ee;--on:#0f1c19}}
+:root[data-theme="dark"]{--bg:#0f1c19;--surf:#172925;--ink:#e6f2ee;--mut:#9fb8b0;--line:#2c433d;--carbs:#e0a82a;--protein:#ea7168;--fats:#6fa6d6;--fibres:#5bbf7a;--btn:#e6f2ee;--on:#0f1c19}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.15;margin:0 0 .5em}
+h1{font-size:clamp(2.4rem,9vw,4.4rem)}h2{font-size:1.8rem}h3{font-size:1.15rem}
+main,header,footer{max-width:900px;margin:0 auto;padding:0 20px}
+nav{display:flex;flex-wrap:wrap;gap:6px 18px;padding:14px 0;border-bottom:1px solid var(--line)}
+nav a{color:var(--ink);text-decoration:none;font-weight:600}nav a:hover{text-decoration:underline}
+.hero{padding:48px 0 32px}.hero p{max-width:52ch;font-size:1.15rem;color:var(--mut)}
+.plate{display:flex;height:14px;border-radius:7px;overflow:hidden;margin:26px 0 8px}
+.plate i{flex:1}.legend{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:.9rem;color:var(--mut)}
+.legend b{color:var(--ink)}
+section{padding:34px 0;border-top:1px solid var(--line)}
+.btn{background:var(--btn);color:var(--on);border:0;border-radius:6px;padding:11px 20px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+.btn:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--fats);outline-offset:2px}
+.panel{background:var(--surf);border:1px solid var(--line);border-radius:10px;padding:20px}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,select{width:100%;max-width:380px;padding:9px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit}
+.stats{display:flex;flex-wrap:wrap;gap:8px 28px;margin-bottom:8px}.stats b{font-size:1.4rem;display:block;font-family:Georgia,serif}
+.err{color:var(--protein);font-weight:600;min-height:1.4em;margin:10px 0 0}
+.ok{border-left:5px solid var(--fibres);padding-left:12px}.warn{border-left:5px solid var(--carbs);padding-left:12px}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+ol li{margin-bottom:6px}.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+small{color:var(--mut)}footer{padding:30px 20px;color:var(--mut)}
+.page{display:none}.page.on{display:block}#home{border-top:0}
+nav a[aria-current="page"]{text-decoration:underline;text-underline-offset:6px}
+</style>
+</head>
+<body>
+<header>
+<nav><a href="#home">Home</a><a href="#how">How to play</a><a href="#play">Companion</a><a href="#calc">Calculators</a><a href="#cards">Cards</a><a href="#about">About</a></nav>
+</header>
+<main>
+<section id="home" class="hero">
+<h1>Cooking Calories</h1>
+<p>A board game about teenage obesity. Every meal you cook adds calories, every activity burns some back, and your goal is to finish the day close to your character's target.</p>
+<div class="plate" aria-hidden="true"><i style="background:var(--carbs)"></i><i style="background:var(--protein)"></i><i style="background:var(--fats)"></i><i style="background:var(--fibres)"></i></div>
+<div class="legend"><span><b>Carbs</b> shop</span><span><b>Protein</b> shop</span><span><b>Fats</b> shop</span><span><b>Fibres</b> shop</span></div>
+<p><a class="btn" href="#play">Open the companion</a></p>
+</section>
+<section id="how">
+<h2>How to play</h2>
+<p>4 players. Each starts with 300 coins and picks one of two character cards, which sets their calorie goal.</p>
+<ol>
+<li><b>Get money and place teenagers.</b> Collect 300 coins and send your teenager to a shop to choose ingredients.</li>
+<li><b>Buy ingredients.</b> Prices differ by shop. If two players want the same ingredient, they compete with a trivia question.</li>
+<li><b>Make a dish.</b> Use your ingredients to cook a menu card. Healthy dishes cost more and have fewer calories.</li>
+<li><b>Draw an activity card.</b> Exercise burns calories, eating adds them.</li>
+</ol>
+<p>After the last hour, your <b>net calories</b> (food minus exercise) are compared with your goal. A balanced diet needs all four nutrient groups.</p>
+</section>
+
+<section id="play">
+<h2>Companion</h2>
+<p>Play a solo round of the game on screen. The program tracks coins and net calories for you.</p>
+<div class="panel" id="game"></div>
+<small>Prototype assumptions: the goal covers the whole game, and success is within 100 kcal of it.</small>
+</section>
+
+<section id="calc">
+<h2>Calculators</h2>
+<div class="grid">
+<div class="panel"><h3>Net calories</h3>
+<label for="cf">Food calories (kcal)</label><input id="cf" inputmode="decimal">
+<label for="cb">Exercise calories burned (kcal)</label><input id="cb" inputmode="decimal">
+<label for="cg">Calorie goal (kcal)</label><input id="cg" inputmode="decimal">
+<p><button class="btn" id="netBtn">Calculate</button></p><p class="err" id="netErr" role="alert"></p><p id="netOut"></p></div>
+</div>
+</section>
+
+<section id="cards">
+<h2>Card reference</h2>
+<h3>Characters</h3><div class="tw"><table id="tChar"></table></div>
+<h3 style="margin-top:24px">Ingredients</h3><div class="tw"><table id="tIng"></table></div>
+<h3 style="margin-top:24px">Dishes</h3><div class="tw"><table id="tDish"></table></div>
+</section>
+
+<section id="about">
+<h2>About</h2>
+<p>Cooking Calories is an interdisciplinary project on teenage obesity. It links biology (nutrient groups), maths (net calorie and energy calculations), economics (food prices), chemistry and physics.</p>
+<p>The game is adapted from Rival Restaurants. Calorie values are rounded estimates. Add your team names, sources and a feedback email here.</p>
+</section>
+</main>
+<footer>Cooking Calories prototype</footer>
+
+<script>
+// ---------- DATA ----------
+const GROUPS = {carbs:"Carbs", protein:"Protein", fats:"Fats", fibres:"Fibres"};
+// key: [name, group, kcal, price]
+const ING = {
+  noodles:["Instant Noodles","carbs",380,15], fries:["Fries","carbs",320,20], donut:["Sugary Donut","carbs",300,20],
+  rice:["Brown Rice","carbs",160,35], oats:["Rolled Oats","carbs",150,30],
+  fchicken:["Fried Chicken","protein",400,30], sausage:["Sausage","protein",300,20], tofu:["Tofu","protein",140,30],
+  gchicken:["Grilled Chicken Breast","protein",165,40], salmon:["Salmon Fillet","protein",230,60],
+  cream:["Creamy Sauce","fats",250,15], cheese:["Melted Cheese","fats",280,20], oil:["Olive Oil","fats",120,35],
+  avocado:["Avocado","fats",160,40], nuts:["Mixed Nuts","fats",170,45],
+  greens:["Leafy Greens","fibres",20,25], broccoli:["Broccoli","fibres",55,30], carrots:["Carrots","fibres",45,25],
+  berries:["Mixed Berries","fibres",70,40], lentils:["Lentils","fibres",130,35]
+};
+const DISHES = [
+  ["Fried Chicken & Fries",["fchicken","fries"]], ["Instant Noodles & Sausage",["noodles","sausage"]],
+  ["Donut Sundae",["donut","donut","cream"]], ["Cheesy Loaded Fries",["fries","sausage","cheese"]],
+  ["Creamy Chicken Noodles",["noodles","fchicken","cream"]],
+  ["Grilled Chicken Salad",["gchicken","greens","greens","rice","oil"]], ["Salmon Rice Bowl",["salmon","rice","broccoli","oil"]],
+  ["Tofu Veggie Stir-fry",["tofu","rice","broccoli","carrots","oil"]], ["Chicken Avocado Rice Bowl",["gchicken","rice","greens","avocado"]],
+  ["Protein Oat Bowl",["oats","berries","nuts","tofu"]]
+];
+// name, age, weight (kg), TDEE, calorie goal
+const CHARS = [["Maya",15,62,2200,2000],["Daniel",16,78,2800,2500],["Aisha",14,48,2000,2000],["Ethan",17,70,3200,3200],
+  ["Sofia",13,55,2000,2000],["Lucas",16,95,2900,2500],["Chloe",17,58,2300,2300],["Noah",14,45,2400,2700]];
+// name, METs, hours (each card is 30 minutes)
+const ACTS = [
+  ["No activity", 0, 0],
+  ["Stretching, 30 min", 2.0, 0.5],
+  ["Slow walk, 30 min", 2.5, 0.5],
+  ["Housework (sweeping), 30 min", 3.3, 0.5],
+  ["Brisk walk, 30 min", 3.5, 0.5],
+  ["Casual cycling, 30 min", 4.0, 0.5],
+  ["Jogging, 30 min", 7.0, 0.5],
+  ["Basketball game, 30 min", 8.0, 0.5],
+  ["Swimming laps (fast), 30 min", 9.8, 0.5]
+];
+const HOURLY_COINS = 300, GOAL_RANGE = 100, BRISK_MET = 3.5;
+
+// ---------- LOGIC ----------
+function dishInfo(d){                       // loops over the ingredient keys
+  let kcal = 0, cost = 0; const groups = new Set();
+  for (const k of d[1]) { kcal += ING[k][2]; cost += ING[k][3]; groups.add(ING[k][1]); }
+  return {name:d[0], kcal, cost, groups, n:d[1].length};
+}
+function readNum(text, min, max, whole){    // returns a number, or null if invalid
+  const t = String(text).trim();
+  if (t === "") return null;
+  const v = Number(t);
+  if (!Number.isFinite(v) || v < min || v > max) return null;
+  if (whole && !Number.isInteger(v)) return null;
+  return v;
+}
+function burn(act, weight){ return ACTS[act][1] * weight * ACTS[act][2]; }
+
+// ---------- COMPANION ----------
+const $ = id => document.getElementById(id);
+const box = $("game");
+let s = null;
+
+function showSetup(msg){
+  box.innerHTML = `<label for="sc">Character</label><select id="sc">${CHARS.map((c,i)=>
+    `<option value="${i}">${c[0]}, ${c[1]}, ${c[2]} kg, goal ${c[4]} kcal</option>`).join("")}</select>
+    <label for="sh">Game length</label><select id="sh"><option>4</option><option selected>5</option><option>6</option></select>
+    <p><button class="btn" id="go">Start game</button></p><p class="err" role="alert">${msg||""}</p>`;
+  $("go").onclick = () => {
+    const c = CHARS[+$("sc").value];
+    s = {c, hours:+$("sh").value, hour:0, coins:0, net:0, eaten:[], groups:new Set()};
+    nextHour();
+  };
+}
+function nextHour(){
+  s.hour++;
+  s.coins += HOURLY_COINS;
+  showHour("");
+}
+function showHour(msg){
+  const dishes = DISHES.map(dishInfo);
+  box.innerHTML = `<div class="stats"><span><b>${s.hour} / ${s.hours}</b>hour</span><span><b>${s.coins}</b>coins</span>
+    <span><b>${Math.round(s.net)}</b>net kcal</span><span><b>${s.c[4]}</b>goal</span></div>
+    <label for="sd">Make a dish</label><select id="sd"><option value="-1">Skip the meal</option>${dishes.map((d,i)=>
+    `<option value="${i}">${d.name}: ${d.kcal} kcal, ${d.cost} coins</option>`).join("")}</select>
+    <label for="sa">Activity card</label><select id="sa">${ACTS.map((a,i)=>`<option value="${i}">${a[0]}</option>`).join("")}</select>
+    <p><button class="btn" id="fin">Finish hour</button></p><p class="err" role="alert">${msg}</p>`;
+  $("fin").onclick = () => {
+    const di = +$("sd").value, ai = +$("sa").value;
+    if (di >= 0) {
+      const d = dishes[di];
+      if (d.cost > s.coins) return showHour(`Not enough coins: ${d.name} costs ${d.cost} and you have ${s.coins}. Choose a cheaper dish or skip the meal.`);
+      s.coins -= d.cost; s.net += d.kcal; s.eaten.push(d);
+      d.groups.forEach(g => s.groups.add(g));
+    }
+    s.net -= burn(ai, s.c[2]);
+    if (s.hour < s.hours) nextHour(); else showSummary();
+  };
+}
+function showSummary(){
+  const goal = s.c[4], diff = s.net - goal;
+  const inRange = Math.abs(diff) <= GOAL_RANGE;
+  const allGroups = Object.keys(GROUPS).every(g => s.groups.has(g));
+  const missing = Object.keys(GROUPS).filter(g => !s.groups.has(g)).map(g => GROUPS[g]);
+  let text, cls = "warn";
+  if (inRange && allGroups) { text = "Goal reached with a balanced diet. Well done."; cls = "ok"; }
+  else if (inRange) text = `You hit your calorie goal, but your diet missed: ${missing.join(", ")}.`;
+  else if (diff > 0) {
+    const mins = Math.round(diff / (BRISK_MET * s.c[2]) * 60);
+    text = `You finished ${Math.round(diff)} kcal over your goal. That is about ${mins} minutes of extra brisk walking for ${s.c[0]}.`;
+  } else text = `You finished ${Math.round(-diff)} kcal under your goal. ${s.c[0]} needed more energy from food.`;
+  if (!inRange && !allGroups) text += ` Your diet also missed: ${missing.join(", ")}.`;
+  box.innerHTML = `<h3>${s.c[0]}'s result</h3><div class="stats"><span><b>${Math.round(s.net)}</b>net kcal</span><span><b>${goal}</b>goal</span>
+    <span><b>${s.eaten.length}</b>dishes cooked</span><span><b>${s.coins}</b>coins left</span></div>
+    <p class="${cls}">${text}</p><p><button class="btn" id="again">Play again</button></p>`;
+  $("again").onclick = () => showSetup("");
+}
+showSetup("");
+
+// ---------- CALCULATORS ----------
+$("netBtn").onclick = () => {
+  const f = readNum($("cf").value, 0, 20000), b = readNum($("cb").value, 0, 20000), g = readNum($("cg").value, 0, 20000);
+  if (f === null || b === null || g === null) { $("netErr").textContent = "Enter numbers from 0 to 20000 in all three fields."; $("netOut").textContent = ""; return; }
+  $("netErr").textContent = "";
+  const net = f - b, diff = net - g;
+  $("netOut").textContent = `Net calories: ${net} kcal. ` + (Math.abs(diff) <= GOAL_RANGE ? "Within the goal range." :
+    diff > 0 ? `${diff} kcal over the goal.` : `${-diff} kcal under the goal.`);
+};
+
+// ---------- CARD TABLES ----------
+$("tChar").innerHTML = "<tr><th>Name</th><th>Age</th><th>Weight</th><th>TDEE</th><th>Goal</th></tr>" +
+  CHARS.map(c => `<tr><td>${c[0]}</td><td>${c[1]}</td><td>${c[2]} kg</td><td>${c[3]}</td><td>${c[4]}</td></tr>`).join("");
+$("tIng").innerHTML = "<tr><th>Ingredient</th><th>Shop</th><th>kcal</th><th>Price</th></tr>" +
+  Object.values(ING).map(i => `<tr><td>${i[0]}</td><td><span class="dot" style="background:var(--${i[1]})"></span>${GROUPS[i[1]]}</td><td>${i[2]}</td><td>${i[3]}</td></tr>`).join("");
+$("tDish").innerHTML = "<tr><th>Dish</th><th>Ingredients</th><th>kcal</th><th>Cost</th></tr>" +
+  DISHES.map(d => { const i = dishInfo(d);
+    return `<tr><td>${i.name}</td><td>${d[1].map(k => ING[k][0]).join(", ")}</td><td>${i.kcal}</td><td>${i.cost}</td></tr>`; }).join("");
+
+// ---------- PAGES (only one section shows at a time) ----------
+const pages = [...document.querySelectorAll("main section")];
+pages.forEach(p => p.classList.add("page"));
+function route(){
+  const id = location.hash.slice(1);
+  const target = pages.some(p => p.id === id) ? id : "home";
+  pages.forEach(p => p.classList.toggle("on", p.id === target));
+  document.querySelectorAll("nav a").forEach(a =>
+    a.setAttribute("aria-current", a.getAttribute("href") === "#" + target ? "page" : "false"));
+  window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
